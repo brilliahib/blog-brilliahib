@@ -44,15 +44,18 @@ export default function CardListBlog({ data, isLoading }: CardListBlogProps) {
       {data?.map((blog) => (
         <Link key={blog.id} href={`/blog/${blog.slug}`} className="group block">
           <Card className="pt-0">
-            <CardHeader className="px-0">
-              <Image
-                src={buildFromAppURL(blog.image)}
-                alt={blog.title}
-                width={1000}
-                height={1000}
-                className="w-full h-48 object-cover rounded-t-xl"
-              />
+            <CardHeader className="px-0 relative">
+              <div className="relative w-full h-48">
+                <Image
+                  src={buildFromAppURL(blog.image)}
+                  alt={blog.title}
+                  fill
+                  className="object-cover rounded-t-xl"
+                />
+                <div className="absolute inset-0 bg-black/20 rounded-t-xl transition-colors duration-300 ease-in-out group-hover:bg-black/30" />
+              </div>
             </CardHeader>
+
             <CardContent>
               <div className="space-y-2">
                 <Badge className="border-primary/50 bg-primary/10 text-primary rounded-full">

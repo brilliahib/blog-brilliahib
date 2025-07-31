@@ -7,7 +7,7 @@ export default function NavButton() {
       <div className="flex items-center">
         <Button
           variant="outline"
-          className="flex w-full items-center justify-center gap-2 rounded-full border text-muted-foreground bg-white py-2 text-sm font-medium"
+          className="flex w-full items-center justify-center gap-2 rounded-full border text-muted-foreground bg-white px-8! py-2 text-sm font-medium cursor-pointer"
         >
           <Search className="h-4 w-4 text-muted-foreground" />
           <span className="hidden sm:inline">Cari Artikel</span>
