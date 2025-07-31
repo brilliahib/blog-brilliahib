@@ -31,9 +31,15 @@ export async function highlightCodeBlocks(
   );
 }
 
-async function replaceAsync(str: string, regex: RegExp, asyncFn: Function) {
+async function replaceAsync(
+  str: string,
+  regex: RegExp,
+  asyncFn: (match: string, lang: string, rawCode: string) => Promise<string>
+) {
   const matches = [...str.matchAll(regex)];
-  const results = await Promise.all(matches.map((match) => asyncFn(...match)));
+  const results = await Promise.all(
+    matches.map((match) => asyncFn(match[0], match[1], match[2]))
+  );
   return matches.reduce((acc, match, i) => {
     return acc.replace(match[0], results[i]);
   }, str);
