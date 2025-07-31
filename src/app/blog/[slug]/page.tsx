@@ -2,13 +2,11 @@ import { Metadata } from "next";
 import BlogDetailWrapper from "@/components/organisms/blog/BlogDetailWrapper";
 import { generateStaticMetadata } from "@/utils/generate-metadata";
 
-type BlogPageProps = {
-  params: {
-    slug: string;
-  };
+type Props = {
+  params: { slug: string };
 };
 
-export function generateMetadata({ params }: BlogPageProps): Metadata {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const rawTitle = decodeURIComponent(params.slug).replace(/-/g, " ");
   const title = rawTitle
     .split(" ")
@@ -20,12 +18,10 @@ export function generateMetadata({ params }: BlogPageProps): Metadata {
   return generateStaticMetadata(title, keywords);
 }
 
-export default function BlogPage({ params }: BlogPageProps) {
-  const { slug } = params;
-
+export default async function BlogPage({ params }: Props) {
   return (
     <section>
-      <BlogDetailWrapper slug={slug} />
+      <BlogDetailWrapper slug={params.slug} />
     </section>
   );
 }
