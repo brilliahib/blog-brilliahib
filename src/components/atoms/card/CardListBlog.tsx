@@ -17,9 +17,9 @@ interface CardListBlogProps {
 
 function CardListBlogSkeleton() {
   return (
-    <Card className="overflow-hidden">
-      <Skeleton className="w-full h-48 rounded-t-xl" />
-      <CardContent className="space-y-2 pt-4">
+    <Card className="overflow-hidden pt-0">
+      <Skeleton className="w-full h-48 rounded-t-xl pt-0" />
+      <CardContent className="space-y-2">
         <Skeleton className="h-5 w-24 rounded-full" />
         <Skeleton className="h-6 w-full rounded-md" />
         <Skeleton className="h-6 w-3/4 rounded-md" />
@@ -32,7 +32,7 @@ export default function CardListBlog({ data, isLoading }: CardListBlogProps) {
   if (isLoading) {
     return (
       <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: 3 }).map((_, i) => (
           <CardListBlogSkeleton key={i} />
         ))}
       </div>

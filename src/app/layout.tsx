@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import "./globals.css";
 import GlobalProvider from "@/components/organisms/GlobalProvider";
 import Navbar from "@/components/organisms/navbar/Navbar";
+import FooterContent from "@/components/molecules/footer/FooterContent";
 
 const figtree = Figtree({
   variable: "--font-figtree",
@@ -49,6 +50,7 @@ export default function RootLayout({
       <body className={`${figtree.variable} antialiased font-figtree`}>
         <Navbar />
         <GlobalProvider>{children}</GlobalProvider>
+        <FooterContent />
       </body>
     </html>
   );
