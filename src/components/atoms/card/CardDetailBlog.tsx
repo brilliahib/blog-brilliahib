@@ -63,7 +63,7 @@ export default function CardDetailBlog({
           src={buildFromAppURL(data.image)}
           width={1000}
           height={1000}
-          className="w-full md:h-[500px] h-full object-cover"
+          className="w-full h-full object-cover rounded-2xl"
           alt={data.title ?? "Gambar Blog"}
         />
       ) : null}
