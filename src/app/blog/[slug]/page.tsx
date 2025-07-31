@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import BlogDetailWrapper from "@/components/organisms/blog/BlogDetailWrapper";
 import { generateStaticMetadata } from "@/utils/generate-metadata";
 
@@ -7,7 +8,7 @@ interface BlogPageProps {
   };
 }
 
-export function generateMetadata({ params }: BlogPageProps) {
+export function generateMetadata({ params }: BlogPageProps): Metadata {
   const rawTitle = decodeURIComponent(params.slug).replace(/-/g, " ");
   const title = rawTitle
     .split(" ")
@@ -21,6 +22,7 @@ export function generateMetadata({ params }: BlogPageProps) {
 
 export default function BlogPage({ params }: BlogPageProps) {
   const { slug } = params;
+
   return (
     <section>
       <BlogDetailWrapper slug={slug} />
