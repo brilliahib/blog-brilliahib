@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import BlogDetailWrapper from "@/components/organisms/blog/BlogDetailWrapper";
 import { generateStaticMetadata } from "@/utils/generate-metadata";
 
-type Props = {
+interface Props {
   params: { slug: string };
-};
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const rawTitle = decodeURIComponent(params.slug).replace(/-/g, " ");
