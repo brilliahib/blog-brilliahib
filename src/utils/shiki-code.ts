@@ -1,0 +1,55 @@
+import { codeToHtml } from "shiki";
+import {
+  transformerMetaHighlight,
+  transformerNotationDiff,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+  transformerRemoveNotationEscape,
+} from "@shikijs/transformers";
+
+import "@/styles/shiki.css";
+
+export async function highlightCodeBlocks(
+  html: string,
+  theme: string = "github-dark"
+): Promise<string> {
+  return await replaceAsync(
+    html,
+    /<pre><code class="language-(\w+)">([\s\S]*?)<\/code><\/pre>/g,
+    async (_: string, rawCode: string) => {
+      const decoded = decodeHTMLEntities(rawCode);
+      return await codeToHtml(decoded, {
+        lang: "ts",
+        themes: {
+          light: "github-light",
+          dark: theme,
+        },
+        defaultColor: false,
+        transformers: [
+          transformerNotationHighlight(),
+          transformerNotationDiff(),
+          transformerNotationWordHighlight(),
+          transformerRemoveNotationEscape(),
+          transformerMetaHighlight(),
+        ],
+      });
+    }
+  );
+}
+
+async function replaceAsync(str: string, regex: RegExp, asyncFn: Function) {
+  const matches = [...str.matchAll(regex)];
+  const results = await Promise.all(matches.map((match) => asyncFn(...match)));
+  return matches.reduce((acc, match, i) => {
+    return acc.replace(match[0], results[i]);
+  }, str);
+}
+
+function decodeHTMLEntities(text: string): string {
+  return text
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
