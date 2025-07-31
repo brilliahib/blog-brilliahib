@@ -2,11 +2,11 @@ import { Metadata } from "next";
 import BlogDetailWrapper from "@/components/organisms/blog/BlogDetailWrapper";
 import { generateStaticMetadata } from "@/utils/generate-metadata";
 
-interface BlogPageProps {
+type BlogPageProps = {
   params: {
     slug: string;
   };
-}
+};
 
 export function generateMetadata({ params }: BlogPageProps): Metadata {
   const rawTitle = decodeURIComponent(params.slug).replace(/-/g, " ");
