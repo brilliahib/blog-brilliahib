@@ -1,18 +1,37 @@
-import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
+"use client";
+
+import Link from "next/link";
+import { Github, Globe, Linkedin } from "lucide-react";
 
 export default function NavButton() {
   return (
-    <>
-      <div className="flex items-center">
-        <Button
-          variant="outline"
-          className="flex w-full items-center justify-center gap-2 rounded-full border text-muted-foreground bg-white px-8! py-2 text-sm font-medium cursor-pointer"
+    <div className="md:flex hidden items-center">
+      <div className="flex items-center md:gap-6 gap-2">
+        <Link
+          href="https://brilliahib.tech"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Website"
         >
-          <Search className="h-4 w-4 text-muted-foreground" />
-          <span className="hidden sm:inline">Cari Artikel</span>
-        </Button>
+          <Globe className="h-5 w-5 hover:text-primary transition-colors" />
+        </Link>
+        <Link
+          href="https://github.com/Brilliahib"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
+          <Github className="h-5 w-5 hover:text-primary transition-colors" />
+        </Link>
+        <Link
+          href="https://www.linkedin.com/in/muhammad-ahib-ibrilli-219421255"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
+          <Linkedin className="h-5 w-5 hover:text-primary transition-colors" />
+        </Link>
       </div>
-    </>
+    </div>
   );
 }

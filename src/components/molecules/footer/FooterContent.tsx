@@ -26,6 +26,7 @@ export default function FooterContent() {
             <Link
               href={"https://github.com/Brilliahib"}
               className="hover:text-white"
+              target="_blank"
             >
               Github
             </Link>
@@ -33,11 +34,16 @@ export default function FooterContent() {
               href={
                 "https://www.linkedin.com/in/muhammad-ahib-ibrilli-219421255"
               }
+              target="_blank"
               className="hover:text-white"
             >
               Linkedin
             </Link>
-            <Link href={"https://brilliahib.tech"} className="hover:text-white">
+            <Link
+              href={"https://brilliahib.tech"}
+              className="hover:text-white"
+              target="_blank"
+            >
               Portfolio
             </Link>
           </div>
