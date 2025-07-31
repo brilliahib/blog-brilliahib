@@ -10,8 +10,8 @@ interface BlogDetailWrapperProps {
 export default function BlogDetailWrapper({ slug }: BlogDetailWrapperProps) {
   const { data, isPending } = useGetDetailBlog(slug);
   return (
-    <div className="pad-x pt-20">
-      <CardDetailBlog data={data?.data} />
+    <div className="pad-x md:pt-20 pt-10">
+      <CardDetailBlog data={data?.data} isLoading={isPending} />
     </div>
   );
 }

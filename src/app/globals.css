@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -132,8 +133,4 @@
   .pad-x-xl {
     @apply px-4 md:px-[6%] lg:px-[10%] xl:px-[12%];
   }
-}
-
-.prose pre.shiki {
-  @apply p-0 bg-transparent;
 }

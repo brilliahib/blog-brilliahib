@@ -1,13 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Blog } from "@/types/blog/blog";
 import { buildFromAppURL } from "@/utils/misc";
@@ -23,25 +17,22 @@ interface CardListBlogProps {
 
 function CardListBlogSkeleton() {
   return (
-    <div className="flex flex-row gap-6">
-      <div className="bg-primary/10 relative hidden aspect-video h-36 w-36 rounded-lg md:flex" />
-      <Card className="border-primary/10 w-full border-2 shadow-transparent">
-        <CardHeader className="flex md:flex-row md:items-center md:justify-between">
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-20 rounded-md" />
-            <Skeleton className="h-6 w-44 rounded-md" />
-          </div>
-        </CardHeader>
-      </Card>
-    </div>
+    <Card className="overflow-hidden">
+      <Skeleton className="w-full h-48 rounded-t-xl" />
+      <CardContent className="space-y-2 pt-4">
+        <Skeleton className="h-5 w-24 rounded-full" />
+        <Skeleton className="h-6 w-full rounded-md" />
+        <Skeleton className="h-6 w-3/4 rounded-md" />
+      </CardContent>
+    </Card>
   );
 }
 
 export default function CardListBlog({ data, isLoading }: CardListBlogProps) {
   if (isLoading) {
     return (
-      <div className="space-y-4">
-        {Array.from({ length: 2 }).map((_, i) => (
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
+        {Array.from({ length: 6 }).map((_, i) => (
           <CardListBlogSkeleton key={i} />
         ))}
       </div>
@@ -59,13 +50,15 @@ export default function CardListBlog({ data, isLoading }: CardListBlogProps) {
                 alt={blog.title}
                 width={1000}
                 height={1000}
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover rounded-t-xl"
               />
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <Badge>{blog.category.name}</Badge>
-                <h1 className="font-semibold">{blog.title}</h1>
+                <Badge className="border-primary/50 bg-primary/10 text-primary rounded-full">
+                  {blog.category.name}
+                </Badge>
+                <h1 className="font-semibold line-clamp-2">{blog.title}</h1>
                 <div className="font-medium text-sm text-muted-foreground">
                   {format(new Date(blog.created_at), "dd MMM yyyy", {
                     locale: id,

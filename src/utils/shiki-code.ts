@@ -7,24 +7,18 @@ import {
   transformerRemoveNotationEscape,
 } from "@shikijs/transformers";
 
-import "@/styles/shiki.css";
-
 export async function highlightCodeBlocks(
   html: string,
-  theme: string = "github-dark"
+  theme: string = "dracula"
 ): Promise<string> {
   return await replaceAsync(
     html,
     /<pre><code class="language-(\w+)">([\s\S]*?)<\/code><\/pre>/g,
-    async (_: string, rawCode: string) => {
+    async (_: string, lang: string, rawCode: string) => {
       const decoded = decodeHTMLEntities(rawCode);
       return await codeToHtml(decoded, {
-        lang: "ts",
-        themes: {
-          light: "github-light",
-          dark: theme,
-        },
-        defaultColor: false,
+        lang: lang || "ts",
+        theme: theme,
         transformers: [
           transformerNotationHighlight(),
           transformerNotationDiff(),

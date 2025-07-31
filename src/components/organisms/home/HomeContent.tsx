@@ -8,8 +8,8 @@ export default function HomeContent() {
   const { data, isPending } = useGetAllBlog();
   return (
     <div className="space-y-16">
-      <CardTopBlog data={data?.data ?? []} />
-      <CardListBlog data={data?.data ?? []} />
+      <CardTopBlog data={data?.data ?? []} isLoading={isPending} />
+      <CardListBlog data={data?.data ?? []} isLoading={isPending} />
     </div>
   );
 }
