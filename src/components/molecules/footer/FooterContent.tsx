@@ -14,10 +14,12 @@ export default function FooterContent() {
               height={49}
               className="md:max-w-[80px] max-w-[40px] rounded-full"
             />
-            <h1 className="font-semibold text-white">Blog | brillyyyjagoan</h1>
+            <h1 className="font-semibold text-white">
+              Blog | Muhammad Ahib Ibrilli
+            </h1>
           </Link>
           <span className="text-sm">
-            © 2025 brillyyyjagoan. All rights reserved.
+            © 2025 Muhammad Ahib Ibrilli. All rights reserved.
           </span>
         </div>
         <div className="space-y-4 md:text-end text-left">

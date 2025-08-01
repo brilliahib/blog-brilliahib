@@ -5,7 +5,7 @@ export function generateStaticMetadata(
   keywords: string
 ): Metadata {
   return {
-    title: `${title} | brillyyyjagoan`,
+    title: `${title} | Muhammad Ahib Ibrilli`,
     keywords,
   };
 }

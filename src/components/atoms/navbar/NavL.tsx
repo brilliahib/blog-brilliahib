@@ -14,7 +14,9 @@ export default function NavL() {
               height={49}
               className="md:max-w-[80px] max-w-[40px] rounded-full"
             />
-            <h1 className="font-semibold text-black">Blog | brillyyyjagoan</h1>
+            <h1 className="font-semibold text-black">
+              Blog | Muhammad Ahib Ibrilli
+            </h1>
           </Link>
         </div>
       </div>

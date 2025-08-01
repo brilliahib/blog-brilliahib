@@ -14,7 +14,7 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "Blog | brillyyyjagoan",
+  title: "Blog | Muhammad Ahib Ibrilli",
   description:
     "A blog about my journey in coding, tech stacks, and web development.",
   keywords:
