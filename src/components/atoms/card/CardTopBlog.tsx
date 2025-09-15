@@ -39,7 +39,10 @@ export default function CardTopBlog({ data, isLoading }: CardTopBlogProps) {
         <div className="absolute inset-0 bg-black/30 hover:bg-black/60 p-4 lg:p-8 flex flex-col justify-end transition duration-300 ease-in-out">
           <div className="w-full sm:w-8/12">
             <div className="space-y-3 sm:space-y-4">
-              <Badge className="rounded-full px-4 text-sm font-semibold">
+              <Badge
+                className="rounded-full px-4 text-sm font-semibold"
+                variant={"secondary"}
+              >
                 {blog.category.name}
               </Badge>
               <div className="font-jkt font-bold text-2xl lg:text-3xl text-white">

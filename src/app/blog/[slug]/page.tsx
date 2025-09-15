@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import BlogDetailWrapper from "@/components/organisms/blog/BlogDetailWrapper";
-import { generateStaticMetadata } from "@/utils/generate-metadata";
+import { getMetadata } from "@/lib/metadata";
+import { buildFromAppURL } from "@/utils/misc";
 
 interface Props {
   params: Promise<{
@@ -11,15 +12,22 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
 
-  const rawTitle = decodeURIComponent(slug).replace(/-/g, " ");
-  const title = rawTitle
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  const post = await fetch(
+    `https://api-blog.brilliahib.tech/api/blogs/${slug}`
+  ).then((res) => res.json());
 
-  const keywords = "blog, nextjs, typescript";
+  const keywords =
+    post.data.tags?.map((tag: { name: string }) => tag.name) || [];
 
-  return generateStaticMetadata(title, keywords);
+  return getMetadata({
+    title: post.data.title,
+    description:
+      "A collection of my writings, where I share lessons learned, technical deep dives, and insights from my journey as a developer.",
+    url: `https://blog.brilliahib.tech/blog/${slug}`,
+    image: buildFromAppURL(post.data.image),
+    type: "article",
+    keywords,
+  });
 }
 
 export default async function BlogPage({ params }: Props) {

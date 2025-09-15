@@ -12,11 +12,9 @@ export default function NavL() {
               alt="Meddiscus"
               width={51}
               height={49}
-              className="md:max-w-[80px] max-w-[40px] rounded-full"
+              className="max-w-[40px] rounded-full"
             />
-            <h1 className="font-semibold text-black">
-              Blog | Muhammad Ahib Ibrilli
-            </h1>
+            <h1 className="font-semibold text-foreground">Blog | Brilliahib</h1>
           </Link>
         </div>
       </div>

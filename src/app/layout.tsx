@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Figtree } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
 import GlobalProvider from "@/components/organisms/GlobalProvider";
 import Navbar from "@/components/organisms/navbar/Navbar";
 import FooterContent from "@/components/molecules/footer/FooterContent";
+import { ThemeProvider } from "@/components/theme-provider";
+import { getMetadata } from "@/lib/metadata";
 
 const figtree = Figtree({
   variable: "--font-figtree",
@@ -13,32 +15,32 @@ const figtree = Figtree({
   style: ["normal", "italic"],
 });
 
-export const metadata: Metadata = {
+export const metadata: Metadata = getMetadata({
   title: "Blog | Muhammad Ahib Ibrilli",
   description:
-    "A blog about my journey in coding, tech stacks, and web development.",
-  keywords:
-    "blog, techstack, coding, programming, web development, nextjs, react, javascript, typescript, brilliahib",
-  icons: [
-    { rel: "icon", url: "/images/icons/favicon.ico", sizes: "16x16" },
-    { rel: "icon", url: "/images/icons/favicon-32x32.png", sizes: "32x32" },
-    {
-      rel: "apple-touch-icon",
-      url: "/images/icons/apple-touch-icon.png",
-      sizes: "180x180",
-    },
-    {
-      rel: "icon",
-      url: "/images/icons/android-chrome-192x192.png",
-      sizes: "192x192",
-    },
-    {
-      rel: "icon",
-      url: "/images/icons/android-chrome-512x512.png",
-      sizes: "512x512",
-    },
+    "A collection of my writings, where I share lessons learned, technical deep dives, and insights from my journey as a developer.",
+  url: "https://blog.brilliahib.tech",
+  image: "https://brilliahib.tech/images/brilly.jpg",
+  keywords: [
+    "Muhammad Ahib Ibrilli",
+    "brilliahib",
+    "brilly",
+    "software engineer",
+    "web developer",
+    "website developer",
+    "website development",
+    "frontend developer",
+    "fullstack developer",
+    "software engineer Semarang",
+    "web developer Semarang",
+    "software engineer Indonesia",
+    "freelance web developer Semarang",
+    "professional website development",
+    "modern web development Indonesia",
   ],
-};
+  siteName: "Blog | Muhammad Ahib Ibrilli",
+  type: "website",
+});
 
 export default function RootLayout({
   children,
@@ -48,9 +50,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${figtree.variable} antialiased font-figtree`}>
-        <Navbar />
-        <GlobalProvider>{children}</GlobalProvider>
-        <FooterContent />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <GlobalProvider>{children}</GlobalProvider>
+          <FooterContent />
+        </ThemeProvider>
       </body>
     </html>
   );

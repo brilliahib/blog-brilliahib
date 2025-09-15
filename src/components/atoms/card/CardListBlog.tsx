@@ -1,7 +1,6 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Blog } from "@/types/blog/blog";
 import { buildFromAppURL } from "@/utils/misc";
@@ -10,66 +9,66 @@ import { id } from "date-fns/locale";
 import Image from "next/image";
 import Link from "next/link";
 
-interface CardListBlogProps {
+interface Props {
   data?: Blog[];
   isLoading?: boolean;
 }
 
 function CardListBlogSkeleton() {
   return (
-    <Card className="overflow-hidden pt-0">
-      <Skeleton className="w-full h-48 rounded-t-xl pt-0" />
-      <CardContent className="space-y-2">
-        <Skeleton className="h-5 w-24 rounded-full" />
+    <div className="space-y-4">
+      <Skeleton className="h-[250px] w-full rounded-lg" />
+      <Skeleton className="h-6 w-24 rounded-full" />
+      <div className="space-y-2">
         <Skeleton className="h-6 w-full rounded-md" />
-        <Skeleton className="h-6 w-3/4 rounded-md" />
-      </CardContent>
-    </Card>
+        <Skeleton className="h-5 w-1/2 rounded-md" />
+      </div>
+    </div>
   );
 }
 
-export default function CardListBlog({ data, isLoading }: CardListBlogProps) {
+export default function CardListBlog({ data, isLoading }: Props) {
   if (isLoading) {
     return (
-      <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
-        {Array.from({ length: 3 }).map((_, i) => (
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-8">
+        {Array.from({ length: 6 }).map((_, i) => (
           <CardListBlogSkeleton key={i} />
         ))}
       </div>
     );
   }
 
-  return (
-    <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
-      {data?.map((blog) => (
-        <Link key={blog.id} href={`/blog/${blog.slug}`} className="group block">
-          <Card className="pt-0">
-            <CardHeader className="px-0 relative">
-              <div className="relative w-full h-48">
-                <Image
-                  src={buildFromAppURL(blog.image)}
-                  alt={blog.title}
-                  fill
-                  className="object-cover rounded-t-xl"
-                />
-                <div className="absolute inset-0 bg-black/20 rounded-t-xl transition-colors duration-300 ease-in-out group-hover:bg-black/30" />
-              </div>
-            </CardHeader>
+  if (!data || data.length === 0) {
+    return (
+      <p className="text-muted-foreground">Belum ada blog yang tersedia.</p>
+    );
+  }
 
-            <CardContent>
-              <div className="space-y-2">
-                <Badge className="border-primary/50 bg-primary/10 text-primary rounded-full">
-                  {blog.category.name}
-                </Badge>
-                <h1 className="font-semibold line-clamp-2">{blog.title}</h1>
-                <div className="font-medium text-sm text-muted-foreground">
-                  {format(new Date(blog.created_at), "dd MMM yyyy", {
-                    locale: id,
-                  })}
-                </div>
+  return (
+    <div className="grid md:grid-cols-3 grid-cols-1 gap-8">
+      {data.map((blog) => (
+        <Link key={blog.id} href={`blog/${blog.slug}`} className="group block">
+          <div className="space-y-4">
+            <Image
+              src={buildFromAppURL(blog.image)}
+              alt={blog.title}
+              width={500}
+              height={300}
+              className="h-[250px] w-full rounded-lg object-cover transition group-hover:opacity-80"
+            />
+
+            <Badge className="rounded-full" variant={"secondary"}>
+              {blog.category.name}
+            </Badge>
+            <div className="space-y-2">
+              <h3 className="font-medium line-clamp-2">{blog.title}</h3>
+              <div className="text-sm text-muted-foreground">
+                {format(new Date(blog.created_at), "dd MMM yyyy", {
+                  locale: id,
+                })}
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </Link>
       ))}
     </div>

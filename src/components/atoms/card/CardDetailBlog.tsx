@@ -31,7 +31,7 @@ export default function CardDetailBlog({
 
   return (
     <div className="space-y-8">
-      <div>
+      <div className="md:hidden flex">
         <Link href={"/"}>
           <div className="flex items-center gap-2 cursor-pointer">
             <ArrowLeft className="h-4 w-4" />
@@ -63,7 +63,7 @@ export default function CardDetailBlog({
           src={buildFromAppURL(data.image)}
           width={1000}
           height={1000}
-          className="w-full h-full object-cover rounded-2xl"
+          className="w-fit h-full object-cover rounded-2xl"
           alt={data.title ?? "Gambar Blog"}
         />
       ) : null}
@@ -83,7 +83,7 @@ export default function CardDetailBlog({
             ))}
       </div>
 
-      <div className="prose text-black max-w-none">
+      <div className="prose dark:prose-invert text-foreground max-w-none">
         {isLoading ? (
           <div className="space-y-2">
             <Skeleton className="h-4 w-full" />
