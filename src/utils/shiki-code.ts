@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { codeToHtml } from "shiki";
 import {
   transformerMetaHighlight,
@@ -7,28 +8,52 @@ import {
   transformerRemoveNotationEscape,
 } from "@shikijs/transformers";
 
+export function useHighlightedHTML(rawHtml: string) {
+  const [html, setHtml] = useState<string>("");
+
+  useEffect(() => {
+    async function highlight() {
+      // Deteksi dark mode otomatis
+      const isDark =
+        typeof window !== "undefined" &&
+        (document.documentElement.classList.contains("dark") ||
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+      const highlighted = await highlightCodeBlocks(
+        rawHtml,
+        isDark ? "dark" : "light"
+      );
+      setHtml(highlighted);
+    }
+    highlight();
+  }, [rawHtml]);
+
+  return html;
+}
+
 export async function highlightCodeBlocks(
   html: string,
-  theme: string = "dracula"
+  theme: "light" | "dark" = "dark"
 ): Promise<string> {
-  return await replaceAsync(
-    html,
-    /<pre><code class="language-(\w+)">([\s\S]*?)<\/code><\/pre>/g,
-    async (_: string, lang: string, rawCode: string) => {
-      const decoded = decodeHTMLEntities(rawCode);
-      return await codeToHtml(decoded, {
-        lang: lang || "ts",
-        theme: theme,
-        transformers: [
-          transformerNotationHighlight(),
-          transformerNotationDiff(),
-          transformerNotationWordHighlight(),
-          transformerRemoveNotationEscape(),
-          transformerMetaHighlight(),
-        ],
-      });
-    }
-  );
+  const regex =
+    /<pre(?:><code(?: class="language-(\w+)")?>|>)([\s\S]*?)(?:<\/code>)?<\/pre>/g;
+
+  return await replaceAsync(html, regex, async (_match, lang, rawCode) => {
+    const decoded = decodeHTMLEntities(rawCode);
+    const highlighted = await codeToHtml(decoded, {
+      lang: lang || "ts",
+      theme: theme === "light" ? "github-light" : "dracula",
+      transformers: [
+        transformerNotationHighlight(),
+        transformerNotationDiff(),
+        transformerNotationWordHighlight(),
+        transformerRemoveNotationEscape(),
+        transformerMetaHighlight(),
+      ],
+    });
+
+    return `<div class="relative group">${highlighted}</div>`;
+  });
 }
 
 async function replaceAsync(

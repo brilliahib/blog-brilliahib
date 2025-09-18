@@ -6,7 +6,7 @@ import { buildFromAppURL } from "@/utils/misc";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import Image from "next/image";
-import { highlightCodeBlocks } from "@/utils/shiki-code";
+import { highlightCodeBlocks, useHighlightedHTML } from "@/utils/shiki-code";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -22,6 +22,8 @@ export default function CardDetailBlog({
   isLoading,
 }: CardDetailBlogProps) {
   const [html, setHtml] = useState("");
+
+  const htmlHighlighted = useHighlightedHTML(html);
 
   useEffect(() => {
     if (data?.content) {
@@ -91,7 +93,7 @@ export default function CardDetailBlog({
             <Skeleton className="h-4 w-2/3" />
           </div>
         ) : (
-          <div dangerouslySetInnerHTML={{ __html: html }} />
+          <div dangerouslySetInnerHTML={{ __html: htmlHighlighted }} />
         )}
       </div>
     </div>
