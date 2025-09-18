@@ -41,7 +41,7 @@ export async function highlightCodeBlocks(
   return await replaceAsync(html, regex, async (_match, lang, rawCode) => {
     const decoded = decodeHTMLEntities(rawCode);
     const highlighted = await codeToHtml(decoded, {
-      lang: lang || "ts",
+      lang: theme === "dark" ? "tsx" : "ts",
       theme: theme === "light" ? "github-light" : "dracula",
       transformers: [
         transformerNotationHighlight(),
