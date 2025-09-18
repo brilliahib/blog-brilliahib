@@ -56,9 +56,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <GlobalProvider>{children}</GlobalProvider>
-          <FooterContent />
+          <GlobalProvider>
+            <Navbar />
+            {children}
+            <FooterContent />
+          </GlobalProvider>
         </ThemeProvider>
       </body>
     </html>

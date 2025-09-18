@@ -12,7 +12,7 @@ export function ThemeToggler() {
       onClick={() => {
         setTheme(theme === "dark" ? "light" : "dark");
       }}
-      className={`group/dock relative h-10 w-10 p-3 text-sm text-yellow-500 transition-all duration-300 ease-in-out focus-visible:outline-none dark:text-indigo-600 [&>svg]:fill-yellow-400 dark:[&>svg]:fill-indigo-500 cursor-pointer`}
+      className={`group/dock relative h-10 w-10 p-3 text-sm text-yellow-500 transition-all duration-300 ease-in-out focus-visible:outline-none dark:text-indigo-600 [&>svg]:fill-yellow-400 dark:[&>svg]:fill-indigo-500 cursor-pointer pl-0`}
       aria-label="Change theme button"
     >
       {theme === "dark" ? (
