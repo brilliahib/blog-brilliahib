@@ -13,7 +13,6 @@ export function useHighlightedHTML(rawHtml: string) {
 
   useEffect(() => {
     async function highlight() {
-      // Deteksi dark mode otomatis
       const isDark =
         typeof window !== "undefined" &&
         (document.documentElement.classList.contains("dark") ||
@@ -41,7 +40,7 @@ export async function highlightCodeBlocks(
   return await replaceAsync(html, regex, async (_match, lang, rawCode) => {
     const decoded = decodeHTMLEntities(rawCode);
     const highlighted = await codeToHtml(decoded, {
-      lang: theme === "dark" ? "tsx" : "ts",
+      lang: lang || "tsx",
       theme: theme === "light" ? "github-light" : "dracula",
       transformers: [
         transformerNotationHighlight(),
@@ -52,7 +51,20 @@ export async function highlightCodeBlocks(
       ],
     });
 
-    return `<div class="relative group">${highlighted}</div>`;
+    return `
+        <div class="relative group">
+          <button
+            class="absolute right-2 top-2 z-10 hidden group-hover:flex items-center gap-1 text-xs bg-muted text-foreground px-2 py-1 rounded-md border border-border hover:bg-muted/80 transition"
+            onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent).then(() => window.dispatchEvent(new CustomEvent('show-copy-toast')))"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-2 12h6a2 2 0 002-2v-8a2 2 0 00-2-2h-6a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            Copy
+          </button>
+          ${highlighted}
+        </div>
+      `;
   });
 }
 

@@ -17,7 +17,7 @@ export default function GlobalProvider({ children }: PropsWithChildren) {
   return (
     <>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      {mounted && <Toaster />}
+      {mounted && <Toaster richColors position="top-right" />}
     </>
   );
 }

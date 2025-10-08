@@ -6,11 +6,15 @@ import { buildFromAppURL } from "@/utils/misc";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import Image from "next/image";
-import { highlightCodeBlocks, useHighlightedHTML } from "@/utils/shiki-code";
+import {
+  highlightCodeBlocks,
+  useHighlightedHTML,
+} from "@/utils/useHighlightedHTML";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
+import { toast } from "sonner";
 
 interface CardDetailBlogProps {
   data?: Blog;
@@ -22,6 +26,15 @@ export default function CardDetailBlog({
   isLoading,
 }: CardDetailBlogProps) {
   const [html, setHtml] = useState("");
+
+  useEffect(() => {
+    function showToast() {
+      toast.success("Copied to clipboard!");
+    }
+
+    window.addEventListener("show-copy-toast", showToast);
+    return () => window.removeEventListener("show-copy-toast", showToast);
+  }, []);
 
   const htmlHighlighted = useHighlightedHTML(html);
 
